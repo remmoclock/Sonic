@@ -28,4 +28,20 @@ class Type {
     {
         return $this->name;
     }
+
+
+    public static function findAll()
+    {
+        $pdo = Database::getPDO();
+        $sql = '
+            SELECT *
+            FROM `type`
+        ';
+        $pdoStatement = $pdo->query($sql);
+        $allType = $pdoStatement->fetchAll(PDO::FETCH_CLASS, Type::class);
+        
+        return $allType;
+    }
+
+
 }

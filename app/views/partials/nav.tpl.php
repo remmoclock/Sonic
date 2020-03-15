@@ -13,7 +13,7 @@
                         <a class="nav-link" href="<?= $router->generate('characters-characters') ?>">Personnages</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= $router->generate('main-author') ?>">Developpeurs</a>
+                        <a class="nav-link" href="<?= $router->generate('type-type') ?>">Type</a>
                     </li>
                    
                 </ul>

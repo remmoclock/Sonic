@@ -4,8 +4,12 @@ require_once '../vendor/autoload.php';
 
 use \App\Controllers\MainController;
 use \App\Controllers\CharactersController;
+use \App\Controllers\TypeController;
+use \App\Controllers\UserController;
 
-
+//ON DEMARRE LA SESSION
+//On peut stocker des variables dans $_SESSION
+session_start();
 
 
 $router = new AltoRouter() ;
@@ -47,6 +51,17 @@ $router->map(
 
 $router->map(
     'GET',
+    '/type',
+    [
+        'method' => 'type',
+        'controller' => TypeController::class,
+    ],
+    'type-type' ,
+);
+
+
+$router->map(
+    'GET',
     '/characters',
     [
         'method' => 'characters',
@@ -74,6 +89,77 @@ $router->map(
     ],
     'characters-characterCreate' ,
 );
+
+
+$router->map(
+    'GET',
+    '/charactersDelete/[i:id]',
+    [
+        'method' => 'charactersDelete',
+        'controller' => CharactersController::class,
+    ],
+    'characters-charactersDelete' ,
+);
+
+$router->map(
+    'GET',
+    '/charactersEdit/[i:id]',
+    [
+        'method' => 'charactersEdit',
+        'controller' => CharactersController::class,
+    ],
+    'characters-charactersEdit' ,
+);
+
+
+$router->map(
+    'POST',
+    '/charactersEdit/[i:id]',
+    [
+        'method' => 'charactersUpdate',
+        'controller' => CharactersController::class,
+    ],
+    'characters-charactersUpdate' ,
+);
+
+
+
+$router->map(
+    'GET',
+    '/login',
+    [
+        'method' => 'loginForm',
+        'controller' => UserController::class,
+    ],
+    'usercontroller-loginForm' ,
+);
+
+$router->map(
+    'POST',
+    '/login',
+    [
+        'method' => 'login',
+        'controller' => UserController::class,
+    ],
+    'usercontroller-login' ,
+);
+
+
+//=============================================================================
+//Super sale c'était pour aller vite et ne pas complexifier
+//On n'est pas authentifié , on instancie un UserController et on appelle la méthode pour a
+//=============================================================================
+if(!array_key_exists('user', $_SESSION) && !array_key_exists('email', $_POST)) {
+    $controller = new UserController();
+    $controller->loginForm();
+    exit();
+}
+//=============================================================================
+
+
+
+
+
 
 
 /* -------------

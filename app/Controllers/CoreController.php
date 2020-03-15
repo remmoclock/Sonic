@@ -12,6 +12,19 @@ class CoreController {
      * @param array $viewVars Tableau des données à transmettre aux vues
      * @return void
      */
+
+
+     protected $router;
+
+     public function __construct()
+     {
+         //ultra sale mais on récupère le router
+         //on pourra utiliser le router dans nos différentes méthodes
+        global $router;
+        $this->router = $router;
+     }
+
+
     protected function show(string $viewName, $viewVars = []) {
         // On globalise $router car on ne sait pas faire mieux pour l'instant
         global $router;
